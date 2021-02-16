@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 @AllArgsConstructor
@@ -21,12 +22,14 @@ import java.util.List;
 @Table(name = "orders")
 public class Orders {
 
+    private static final AtomicInteger counter = new AtomicInteger();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private Integer userId = UserId.nextValue();
 
     @OneToMany(mappedBy = "orders", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<OrderItem> orderItem = new ArrayList<>();
@@ -42,26 +45,7 @@ public class Orders {
     private Date createdAt;
 
     public Orders(final ProductStatus status) {
-//        this.userId = userId;
-        //        this.orderItem = orderItem;
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Orders{" +
-               "id=" +
-               id +
-               ", userId='" +
-               userId +
-               '\'' +
-               ", orderItem=" +
-               orderItem +
-               ", status=" +
-               status +
-               ", createdAt='" +
-               createdAt +
-               '\'' +
-               '}';
-    }
 }
