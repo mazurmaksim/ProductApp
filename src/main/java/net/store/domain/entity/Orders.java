@@ -41,11 +41,23 @@ public class Orders {
     @Column(name = "created_at")
     @CreationTimestamp
     @Convert(converter = DateConverterImpl.class)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date createdAt;
 
     public Orders(final ProductStatus status) {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "Orders{" +
+               "id=" +
+               id +
+               ", userId=" +
+               userId +
+               ", status=" +
+               status +
+               ", createdAt=" +
+               createdAt +
+               '}';
+    }
 }

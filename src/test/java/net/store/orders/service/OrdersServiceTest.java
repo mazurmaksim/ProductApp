@@ -24,7 +24,7 @@ public class OrdersServiceTest {
 	
 	@Test
 	@Rollback(false)
-	public void testCreateProduct() {
+	public void testCreateOrder() {
 		Orders orders = new Orders(ProductStatus.IN_STOCK);
 		Orders saveOrder = repo.save(orders);
 
